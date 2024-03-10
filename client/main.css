@@ -1,0 +1,19 @@
+body {
+  font-family: Avenir, Verdana, Geneva, Tahoma, sans-serif;
+  font-weight:lighter;
+  background-color: #000;
+  color: antiquewhite;
+}
+
+a {
+  color:aqua;
+}
+
+button {
+  border: 2px solid red;
+  background-color: rgba(0,0,0,0);
+  color: green;
+  font-size: 2em;
+  padding: 10px;
+  margin: 10px;
+}
