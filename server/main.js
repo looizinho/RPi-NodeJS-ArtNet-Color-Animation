@@ -1,5 +1,8 @@
 import { Meteor } from "meteor/meteor";
-import { arrayUnificado } from './generator'
+import { artnetArrayGenerator } from './generator'
+import { createTransition } from "./fade";
+
+createTransition(0, 169, [{r:86,g:64,b:0}, {r:255,g:86,b:128}], 7000, 14000)
 
 var Setup = new Mongo.Collection("setup");
 
@@ -21,14 +24,14 @@ var artnet = require("artnet")(options);
 
 Meteor.startup(() => {
 
-  // artnet.set(UNIVERSE1, BLUE, arrayUnificado(150, ordem2));
-  // artnet.set(UNIVERSE2, RED, arrayUnificado(150, ordem2));
+  // artnet.set(UNIVERSE1, BLUE, artnetArrayGenerator(150, ordem2));
+  // artnet.set(UNIVERSE2, RED, artnetArrayGenerator(150, ordem2));
 
   Meteor.setInterval(()=> {
     ordem1 = ordem1 == 'up' ? 'down' : 'up'
     ordem2 = ordem2 == 'up' ? 'down' : 'up'
-    artnet.set(UNIVERSE1, RED, arrayUnificado(150, ordem1));
-    // artnet.set(UNIVERSE2, BLUE, arrayUnificado(150, ordem2));
+    // artnet.set(UNIVERSE1, RED, artnetArrayGenerator(150, ordem1));
+    // artnet.set(UNIVERSE2, BLUE, artnetArrayGenerator(150, ordem2));
   }, 300)
 
 
@@ -122,4 +125,4 @@ Meteor.methods({
 //   }, 2000);
 // }
 
-// console.log(arrayUnificado(5, 'up'));
+// console.log(artnetArrayGenerator(5, 'up'));
