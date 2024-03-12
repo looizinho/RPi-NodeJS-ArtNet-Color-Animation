@@ -1,52 +1,75 @@
 import { Meteor } from "meteor/meteor";
-import { artnetArrayGenerator } from './generator'
+import { ReactiveVar } from "meteor/reactive-var";
+import { artnetArrayGenerator } from "./generator";
 import { createTransition } from "./fade";
-
-createTransition(0, 169, [{r:86,g:64,b:0}, {r:255,g:86,b:128}], 7000, 14000)
 
 var Setup = new Mongo.Collection("setup");
 
-var ordem1 = 'up';
-var ordem2 = 'down';
+var ordem1 = "up";
+var ordem2 = "down";
 
+const DURATION = 2000;
 const RED = 1;
 const GREEN = 2;
 const BLUE = 3;
 const UNIVERSE1 = 1;
-const UNIVERSE2 = 2;
-const IPS = ['255.255.255.255', '192.168.1.4', '192.168.1.7']
+const UNIVERSE2 = 3;
+const IPS = [
+  "255.255.255.255",
+  "192.168.1.4",
+  "192.168.1.7",
+  "0.0.0.0",
+  "127.0.0.1",
+];
 const options = {
-  host: IPS[2],
-  port: 6454
+  host: IPS[4],
+  port: 6454,
 };
 
 var artnet = require("artnet")(options);
+let from = null;
+let to = null;
 
 Meteor.startup(() => {
-
-  // artnet.set(UNIVERSE1, BLUE, artnetArrayGenerator(150, ordem2));
-  // artnet.set(UNIVERSE2, RED, artnetArrayGenerator(150, ordem2));
-
-  Meteor.setInterval(()=> {
-    ordem1 = ordem1 == 'up' ? 'down' : 'up'
-    ordem2 = ordem2 == 'up' ? 'down' : 'up'
+  Meteor.setInterval(() => {
     // artnet.set(UNIVERSE1, RED, artnetArrayGenerator(150, ordem1));
-    // artnet.set(UNIVERSE2, BLUE, artnetArrayGenerator(150, ordem2));
-  }, 300)
+    // artnet.set(UNIVERSE2, GREEN, artnetArrayGenerator(109, ordem2));
+    if (ordem1 == "up") {
+      from = getRandomColor();
+      to = getRandomColor();
+      createTransition(0, 150, [from, to], DURATION, 0);
+      createTransition(1, 150, [from, to], DURATION, 0);
+      createTransition(2, 150, [from, to], DURATION, 0);
+      createTransition(3, 150, [from, to], DURATION, 0);
+      console.log(from, to);
+    } else if (ordem1 == "down") {
+      createTransition(0, 150, [to, from], DURATION, 0);
+      createTransition(1, 150, [to, from], DURATION, 0);
+      createTransition(2, 150, [to, from], DURATION, 0);
+      createTransition(3, 150, [to, from], DURATION, 0);
+      console.log(to, from);
+    }
+    ordem1 = ordem1 == "up" ? "down" : "up";
+    ordem2 = ordem2 == "up" ? "down" : "up";
+  }, DURATION);
+});
 
-
-
-})
+function getRandomColor() {
+  var _r = Math.floor(Math.random() * 256);
+  var _g = Math.floor(Math.random() * 256);
+  var _b = Math.floor(Math.random() * 256);
+  return { r: _r, g: _g, b: _b };
+}
 
 Meteor.methods({
   reset() {
-    artnetResetAll()
+    artnetResetAll();
   },
   check() {
     artnetCheck();
   },
   all(color) {
-    let state = false
+    let state = false;
     for (var i = color; i < 11; i += 3) {
       if (i < 10) {
         artnet.set(i, 255);
@@ -54,11 +77,11 @@ Meteor.methods({
       if (i >= 10) {
         artnet.set(i, 255, (err, res) => {
           artnet.close();
-          state = true
+          state = true;
         });
       }
     }
-    return state
+    return state;
   },
 });
 
