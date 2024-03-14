@@ -8,7 +8,8 @@ var Setup = new Mongo.Collection("setup");
 var ordem1 = "up";
 var ordem2 = "down";
 
-const DURATION = 2000;
+const DURATION = 5000;
+const TRESHOLD = 200;
 const RED = 1;
 const GREEN = 2;
 const BLUE = 3;
@@ -31,33 +32,37 @@ let from = null;
 let to = null;
 
 Meteor.startup(() => {
+  from = getRandomColor(TRESHOLD);
   Meteor.setInterval(() => {
+      to = getRandomColor(TRESHOLD);
+      console.log(from, to);
+      createTransition(0, 150, [from, to], DURATION, DURATION);
+      createTransition(1, 150, [from, to], DURATION, DURATION);
+      createTransition(2, 150, [from, to], DURATION, DURATION);
+      createTransition(3, 150, [from, to], DURATION, DURATION);
+      Meteor.setTimeout(()=>{
+        from = getRandomColor(TRESHOLD);
+      console.log(to, from);
+      createTransition(0, 150, [to, from], DURATION, DURATION);
+      createTransition(1, 150, [to, from], DURATION, DURATION);
+      createTransition(2, 150, [to, from], DURATION, DURATION);
+      createTransition(3, 150, [to, from], DURATION, DURATION);
+      }, DURATION)
+
     // artnet.set(UNIVERSE1, RED, artnetArrayGenerator(150, ordem1));
     // artnet.set(UNIVERSE2, GREEN, artnetArrayGenerator(109, ordem2));
-    if (ordem1 == "up") {
-      from = getRandomColor();
-      to = getRandomColor();
-      createTransition(0, 150, [from, to], DURATION, 0);
-      createTransition(1, 150, [from, to], DURATION, 0);
-      createTransition(2, 150, [from, to], DURATION, 0);
-      createTransition(3, 150, [from, to], DURATION, 0);
-      console.log(from, to);
-    } else if (ordem1 == "down") {
-      createTransition(0, 150, [to, from], DURATION, 0);
-      createTransition(1, 150, [to, from], DURATION, 0);
-      createTransition(2, 150, [to, from], DURATION, 0);
-      createTransition(3, 150, [to, from], DURATION, 0);
-      console.log(to, from);
-    }
-    ordem1 = ordem1 == "up" ? "down" : "up";
-    ordem2 = ordem2 == "up" ? "down" : "up";
-  }, DURATION);
+    // if (ordem1 == "up") {
+    // } else if (ordem1 == "down") {
+    // }
+    // ordem1 = ordem1 == "up" ? "down" : "up";
+    // ordem2 = ordem2 == "up" ? "down" : "up";
+  }, DURATION*2);
 });
 
-function getRandomColor() {
-  var _r = Math.floor(Math.random() * 256);
-  var _g = Math.floor(Math.random() * 256);
-  var _b = Math.floor(Math.random() * 256);
+function getRandomColor(treshold) {
+  var _r = Math.floor(Math.random() * treshold);
+  var _g = Math.floor(Math.random() * treshold);
+  var _b = Math.floor(Math.random() * treshold);
   return { r: _r, g: _g, b: _b };
 }
 
@@ -84,68 +89,3 @@ Meteor.methods({
     return state;
   },
 });
-
-// artnet.set(1, numSeq(0, 512), function (err, res) {
-//   artnet.close();
-// });
-
-// for (let i = 1 i < 512 i += 4) {
-//   const artnet = require("artnet")(options)
-//   artnet.set(i, 255, function (err, res) {
-//     artnet.close()
-//   })
-// }
-
-// setInterval(() => {
-//   if (state == false) {
-//     value = 255
-//     state = true
-//   } else {
-//     value = 0
-//     state = false
-//   }
-
-//   const artnet = require("artnet")(options)
-//   artnet.set(1, value, function (err, res) {
-//     artnet.close()
-//   })
-// }, 2000)
-
-// function numSeq(min, max) {
-//   var sequentialNumbers = [];
-//   for (var i = min; i <= max; i++) {
-//     sequentialNumbers.push(i);
-//   }
-//   return sequentialNumbers;
-// }
-
-// function numLoop(value, times) {
-//   var sequentialNumbers = [];
-//   for (var i = 0; i < times; i++) {
-//     sequentialNumbers.push(value);
-//   }
-//   return sequentialNumbers;
-// }
-
-// function artnetResetAll() {
-//   // artnet = require("artnet")(options)
-//   // artnet.close()
-//   let artnetReset = require("artnet")(options);
-//   artnetReset.set(0, 1, numLoop(0, 512));
-//   artnetReset.set(1, 1, numLoop(0, 512), (err, res) => {
-//     artnetReset.close();
-//   });
-// }
-
-// function artnetCheck() {
-//   let artnetCheck = require("artnet")(options);
-//   artnetCheck.set(0, 1, numLoop(255, 512));
-//   artnetCheck.set(1, 1, numLoop(255, 512), (err, res) => {
-//     artnetCheck.close();
-//   });
-//   Meteor.setTimeout(() => {
-//     artnetResetAll();
-//   }, 2000);
-// }
-
-// console.log(artnetArrayGenerator(5, 'up'));
