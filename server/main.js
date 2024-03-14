@@ -8,8 +8,9 @@ var Setup = new Mongo.Collection("setup");
 var ordem1 = "up";
 var ordem2 = "down";
 
-const DURATION = 5000;
+const DURATION = 500;
 const TRESHOLD = 200;
+const UNIVERSES = 4;
 const RED = 1;
 const GREEN = 2;
 const BLUE = 3;
@@ -28,35 +29,42 @@ const options = {
 };
 
 var artnet = require("artnet")(options);
-let from = null;
-let to = null;
+let from1 = null;
+let to1 = null;
+let from2 = null;
+let to2 = null;
 
 Meteor.startup(() => {
-  from = getRandomColor(TRESHOLD);
+  from1 = getRandomColor(TRESHOLD);
+  from2 = from1;
   Meteor.setInterval(() => {
-      to = getRandomColor(TRESHOLD);
-      console.log(from, to);
-      createTransition(0, 150, [from, to], DURATION, DURATION);
-      createTransition(1, 150, [from, to], DURATION, DURATION);
-      createTransition(2, 150, [from, to], DURATION, DURATION);
-      createTransition(3, 150, [from, to], DURATION, DURATION);
-      Meteor.setTimeout(()=>{
-        from = getRandomColor(TRESHOLD);
-      console.log(to, from);
-      createTransition(0, 150, [to, from], DURATION, DURATION);
-      createTransition(1, 150, [to, from], DURATION, DURATION);
-      createTransition(2, 150, [to, from], DURATION, DURATION);
-      createTransition(3, 150, [to, from], DURATION, DURATION);
-      }, DURATION)
+    to1 = getRandomColor(TRESHOLD);
+    to2 = getRandomColor(TRESHOLD);
+    for (let index = 0; index < UNIVERSES/2; index++) {
+      createTransition(index, 150, [from1, to1], DURATION, DURATION);
+    }
+    for (let index = 2; index < UNIVERSES; index++) {
+      createTransition(index, 150, [from2, to2], DURATION, DURATION);
+    }
+    Meteor.setTimeout(() => {
+      from1 = getRandomColor(TRESHOLD);
+      from2 = getRandomColor(TRESHOLD);
+      for (let index = 0; index < UNIVERSES/2; index++) {
+        createTransition(index, 150, [to1, from1], DURATION, DURATION);
+      }
+      for (let index = 2; index < UNIVERSES; index++) {
+        createTransition(index, 150, [to2, from2], DURATION, DURATION);
+      }
+    }, DURATION);
+  }, DURATION * 2);
 
-    // artnet.set(UNIVERSE1, RED, artnetArrayGenerator(150, ordem1));
+     // artnet.set(UNIVERSE1, RED, artnetArrayGenerator(150, ordem1));
     // artnet.set(UNIVERSE2, GREEN, artnetArrayGenerator(109, ordem2));
     // if (ordem1 == "up") {
     // } else if (ordem1 == "down") {
     // }
     // ordem1 = ordem1 == "up" ? "down" : "up";
     // ordem2 = ordem2 == "up" ? "down" : "up";
-  }, DURATION*2);
 });
 
 function getRandomColor(treshold) {
