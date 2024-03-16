@@ -58,7 +58,7 @@ function animateColorTransition( universe, fixtures, colors, duration, pause) {
 
 // Inicia a animação de transição de cor
 function createTransition(_universe, _fixtures, _colors, _duration, _delay) {
-  animateColorTransition(_universe, _fixtures, _colors, _duration, _duration);
+  animateColorTransition(_universe, _fixtures, _colors, _duration, _delay);
   Meteor.setInterval(() => {
     // animateColorTransition(_universe, _fixtures, _colors, _duration, _duration);
   }, _delay);

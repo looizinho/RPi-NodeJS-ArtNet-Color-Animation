@@ -8,8 +8,8 @@ var Setup = new Mongo.Collection("setup");
 var ordem1 = "up";
 var ordem2 = "down";
 
-const DURATION = 500;
-const TRESHOLD = 200;
+const DURATION = 5000;
+const TRESHOLD = 255;
 const UNIVERSES = 4;
 const RED = 1;
 const GREEN = 2;
@@ -29,31 +29,33 @@ const options = {
 };
 
 var artnet = require("artnet")(options);
-let from1 = null;
-let to1 = null;
-let from2 = null;
-let to2 = null;
+let from1 = { r: 255, g: 0, b: 0 };
+let to1 = { r: 0, g: 255, b: 0 };
+let from2 = to1;
+let to2 = from1;
 
 Meteor.startup(() => {
-  from1 = getRandomColor(TRESHOLD);
-  from2 = from1;
+  // from1 = getRandomColor(TRESHOLD);
+  // from2 = from1;
   Meteor.setInterval(() => {
-    to1 = getRandomColor(TRESHOLD);
-    to2 = getRandomColor(TRESHOLD);
+    from2 = from1;
+    to2 = to1;
+    // to1 = getRandomColor(TRESHOLD);
+    // to2 = getRandomColor(TRESHOLD);
     for (let index = 0; index < UNIVERSES/2; index++) {
       createTransition(index, 150, [from1, to1], DURATION, DURATION);
     }
     for (let index = 2; index < UNIVERSES; index++) {
-      createTransition(index, 150, [from2, to2], DURATION, DURATION);
+      createTransition(index, 150, [to1, from1], DURATION, DURATION);
     }
     Meteor.setTimeout(() => {
-      from1 = getRandomColor(TRESHOLD);
+      // from1 = getRandomColor(TRESHOLD);
       from2 = getRandomColor(TRESHOLD);
       for (let index = 0; index < UNIVERSES/2; index++) {
         createTransition(index, 150, [to1, from1], DURATION, DURATION);
       }
       for (let index = 2; index < UNIVERSES; index++) {
-        createTransition(index, 150, [to2, from2], DURATION, DURATION);
+        createTransition(index, 150, [from1, to1], DURATION, DURATION);
       }
     }, DURATION);
   }, DURATION * 2);
@@ -75,6 +77,12 @@ function getRandomColor(treshold) {
 }
 
 Meteor.methods({
+  changeColors(from, to) {
+    // console.log(color1, color2);
+    from1 = hexToRgb(from)
+    to1 = hexToRgb(to)
+  },
+
   reset() {
     artnetResetAll();
   },
@@ -97,3 +105,23 @@ Meteor.methods({
     return state;
   },
 });
+
+function hexToRgb(hex) {
+  // Remova o '#' se estiver presente
+  hex = hex.replace(/^#/, '');
+
+  // Se o valor hexadecimal tiver 3 dígitos, expanda para 6 dígitos
+  if (hex.length === 3) {
+      hex = hex.split('').map(function (hex) {
+          return hex + hex;
+      }).join('');
+  }
+
+  // Extraia os valores de R, G e B
+  var r = parseInt(hex.substring(0, 2), 16);
+  var g = parseInt(hex.substring(2, 4), 16);
+  var b = parseInt(hex.substring(4, 6), 16);
+
+  // Retorna a representação RGB
+  return {r:r, g:g, b:b};
+}

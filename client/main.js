@@ -10,6 +10,11 @@ Template.actions.helpers({
 });
 
 Template.actions.events({
+  'submit form'(e) {
+    e.preventDefault()
+    Meteor.call('changeColors', e.target.color1.value, e.target.color2.value)
+
+  },
   'click .action'(e, instance) {
     Meteor.call(e.target.id)
   },
