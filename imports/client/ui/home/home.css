@@ -1,0 +1,46 @@
+/* .top-title {
+  border-bottom: 1px solid red;
+} */
+
+.card-mode {
+  margin: 2vh 0 0 5vw;
+  width: 90vw;
+  height: 23vh;
+  border-radius: 20px;
+  border: 2px solid #C69E2F;
+  text-align: right;
+  color: #C69E2F;
+  padding: 10vh 30px 0 0;
+  font-size: 1.3em;
+  /* background-color: rgba(255,255,255,0); */
+  animation-duration: 1s;
+}
+
+.card-mode mdui-icon {
+  font-size: 2em;
+  /* float: left; */
+  left: 20px;
+  top: 40%;
+  position: absolute;
+  color: #C69E2F;
+  /* animation-duration: 3s; */
+}
+
+.card-mode-selected {
+  background-color: rgba(198, 158, 47, 0.3);
+  color: black;
+  animation-duration: 0.5s;
+  font-size: 1.7em;
+}
+
+.card-mode-selected mdui-icon {
+  color: black;
+}
+
+/* #icon-loop {
+  animation: rot 5s infinite;
+}
+
+@keyframes rot {
+  100% {transform: rotate(360deg);}
+} */

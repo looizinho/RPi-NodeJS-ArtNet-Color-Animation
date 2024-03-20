@@ -1,0 +1,14 @@
+mdui-top-app-bar {
+  border-bottom: 1px solid #C69E2F;
+  background-color: black;
+}
+
+.top-app-bar, mdui-top-app-bar-title {
+  text-align: center;
+  height: 60px;
+}
+
+.header-logo {
+  width: 80px;
+  cursor: pointer;
+}

@@ -1,0 +1,25 @@
+<template name="home">
+  <div class="top-title">
+    <h1 class="">Modo de Operação</h1>
+  </div>
+
+  <div id="modeSelect">
+    <mdui-card
+      class="card-mode animate__animated animate__flipInX"
+      variant="outlined"
+      clickable
+      id="solo"
+    >
+      <mdui-icon class="animate__animated animate__zoomIn" name="circle"></mdui-icon>
+      INDEPENDENTE
+    </mdui-card>
+    <mdui-card class="card-mode animate__animated animate__flipInX" variant="outlined" clickable id="clone">
+      <mdui-icon name="join_full" class="animate__animated animate__flip"></mdui-icon>
+      CLONADO
+    </mdui-card>
+    <mdui-card class="card-mode animate__animated animate__flipInX" variant="outlined" clickable id="random">
+      <mdui-icon name="loop" id="icon-loop" class="animate__animated animate__rotateIn"></mdui-icon>
+      ALEATÓRIO
+    </mdui-card>
+  </div>
+</template>

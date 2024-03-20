@@ -1,26 +1,54 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import { Template } from "meteor/templating";
+import { ReactiveVar } from "meteor/reactive-var";
 
-import './main.html';
+import '../imports/client/mdui.css'
+import '../imports/client/mdui.js'
+import "./main.html";
+// // import "@material/web/all";
+import 'animate.css';
+// import "mdui/mdui.css";
+// import "mdui.js";
+// import "mdui/components/layout.js";
+// import "mdui/components/layout-item.js";
+// import "mdui/components/layout-main.js";
+// import 'mdui/components/navigation-bar.js';
+// import 'mdui/components/navigation-bar-item.js';
+// import 'mdui/components/icon.js';
+// import 'mdui/components/bottom-app-bar.js';
 
-Template.actions.onCreated(function actionsOnCreated() {
-});
+// import {
+//   alert,
+//   confirm,
+//   card,
+//   dialog,
+//   prompt,
+//   snackbar,
+//   getTheme,
+//   setTheme,
+//   getColorFromImage,
+//   setColorScheme,
+//   removeColorScheme,
+//   throttle,
+//   observeResize,
+//   breakpoint,
+//   slider,
+// } from "mdui.js";
 
-Template.actions.helpers({
-});
+import '../imports/client/ui/partials/header'
+import '../imports/client/ui/home/home'
+import '../imports/client/ui/clone/clone'
+import '../imports/client/ui/solo/solo'
+import '../imports/client/ui/random/random'
+import '../imports/client/ui/partials/colors'
+import '../imports/client/ui/partials/footer'
+import '../imports/client/ui/partials/transition'
 
-Template.actions.events({
-  'submit form'(e) {
-    e.preventDefault()
-    Meteor.call('changeColors', e.target.color1.value, e.target.color2.value)
+modePage = new ReactiveVar('home')
 
-  },
-  'click .action'(e, instance) {
-    Meteor.call(e.target.id)
-  },
-  'click .color'(e, instance) {
-    Meteor.call('all', parseInt(e.target.id), (err, res)=>{
-      console.log(err, res);
-    })
-  },
+Template.body.helpers({
+  actualPage(_page) {
+    if (_page == modePage.get()) {
+      return true
+    }
+  }
 });

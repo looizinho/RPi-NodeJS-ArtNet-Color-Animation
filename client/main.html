@@ -1,20 +1,42 @@
 <head>
-  <title>mtrProject</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EliteLED</title>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
+  />
+  <meta name="renderer" content="webkit" />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone"
+    rel="stylesheet"
+  />
+  <!-- <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css" /> -->
+  <!-- <script src="https://unpkg.com/mdui@2/mdui.global.js"></script> -->
 </head>
 
-<body>
-  <h1>EliteLED</h1>
-  {{> actions}}
+<body class="mdui-theme-dark">
+  <mdui-layout>
+    {{> header}}
+    <mdui-layout-main class="example-layout-main" style="min-height: 300px">
+      {{#if actualPage 'home'}} {{> home}} {{/if}} {{#if actualPage 'clone'}}
+      {{> clone}} {{/if}} {{#if actualPage 'random'}} {{> random}} {{/if}} {{#if
+      actualPage 'solo'}} {{> solo}} {{/if}}
+    </mdui-layout-main>
+  </mdui-layout>
 </body>
-
-<template name="actions">
-  <br />
-  <form>
-    COR1: <input id="color1" type="color" value="#FF0000" />
-    <br />
-    COR2: <input id="color2" type="color" value="#00FF00" />
-    <br />
-    <button type="submit">ALTERAR</button>
-  </form>
-</template>

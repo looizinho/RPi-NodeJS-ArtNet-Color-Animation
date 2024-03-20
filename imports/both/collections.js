@@ -1,0 +1,1 @@
+Setup = new Mongo.Collection("setup");
