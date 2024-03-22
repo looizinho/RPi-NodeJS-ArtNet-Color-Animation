@@ -1,9 +1,14 @@
+import { setLoop } from "./loop";
+
 Meteor.methods({
+  test() {
+    console.log(new Date().getTime);
+  },
   setMode(mode) {
     console.log(mode);
   },
   setTransitionTime(_time) {
-    setLoop(_time);
+    setLoop(_time*1000);
   },
   changeColors(from, to) {
     // console.log(color1, color2);

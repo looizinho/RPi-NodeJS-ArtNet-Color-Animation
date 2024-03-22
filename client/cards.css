@@ -1,0 +1,323 @@
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 94vw;
+  margin: 30px auto;
+  /* margin-top: 258px; */
+}
+
+.card {
+  position: relative;
+  height: 170px;
+  width: 45%;
+  margin: 10px 0;
+}
+
+.card span {
+  position: relative;
+}
+
+.card span::before,
+.card span::after {
+  text-transform: uppercase;
+  font-size: 12px;
+  position: absolute;
+  left: 0;
+}
+
+.card span::before {
+  content: attr(data-o);
+  opacity: 0;
+}
+
+.card span::after {
+  content: attr(data-c);
+}
+
+.card strong {
+  margin: 70px 0 10px;
+  display: block;
+  font-size: 18px;
+}
+
+.card label {
+  position: absolute;
+  width: 74%;
+  height: 71%;
+  cursor: pointer;
+  padding: 20px;
+  box-shadow: 1px 0 10px 10px rgba(0, 0, 0, 0.03);
+  border-radius: 30px;
+}
+
+.card label::before {
+  border-radius: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  content: '';
+  backdrop-filter: blur(1000px);
+}
+
+.card label * {
+  position: relative;
+  transition: 200ms;
+}
+
+.card label small {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #ff574e;
+  border-radius: 10px;
+  top: 30px;
+  right: 20px;
+  transition: 200ms;
+}
+
+.card label small::after,
+.card label small::before {
+  content: '';
+}
+
+.card label .f {
+  width: 16px;
+  height: 22px;
+  background-color: #3976f6;
+  display: block;
+  position: absolute;
+  border-radius: 2px;
+  top: 30px;
+  background-image: linear-gradient(0deg, white 2px, transparent 2px), linear-gradient(0deg, white 12px, transparent 0);
+  background-size: 17px 9px, 2px 15px;
+  background-position: 0 0, 3px 0;
+  background-repeat: no-repeat;
+}
+
+.card label .a {
+  width: 23px;
+  height: 10px;
+  background-color: #3976f6;
+  display: block;
+  position: absolute;
+  border-radius: 2px;
+  top: 30px;
+  background-image: linear-gradient(0deg, white 2px, transparent 2px);
+  background-size: 17px 9px;
+  background-position: 3px -2px;
+  background-repeat: no-repeat;
+}
+
+.card label .a::after,
+.card label .a::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: transparent transparent #3976f6;
+  top: 10px;
+  border-radius: 50%;
+  transform: rotate(72deg);
+  display: block;
+}
+
+.card label .a::after {
+  left: 14px;
+}
+
+.card label .a::before {
+  left: 6px;
+}
+
+.card label .r {
+  width: 23px;
+  height: 9px;
+  background-color: #3976f6;
+  display: block;
+  position: absolute;
+  border-radius: 3px;
+  top: 30px;
+}
+
+.card label .r::after,
+.card label .r::before {
+  content: '';
+  border-width: 2px;
+  border-style: solid;
+  border-color: rgba(57, 118, 246, .61) transparent transparent;
+  border-radius: 50%;
+  position: absolute;
+  display: block;
+}
+
+.card label .r::after {
+  width: 22px;
+  height: 20px;
+  top: -11px;
+  left: -2px;
+}
+
+.card label .r::before {
+  width: 16px;
+  height: 20px;
+  top: -6px;
+  left: 1px;
+}
+
+.card label .l {
+  width: 22px;
+  height: 13px;
+  background-color: #3976f6;
+  display: block;
+  position: absolute;
+  border-radius: 22px 22px 0 0;
+  top: 30px;
+}
+
+.card label .l::before {
+  content: '';
+  width: 3px;
+  height: 8px;
+  background-color: rgba(57, 118, 246, 0.61);
+  display: block;
+  top: -8px;
+  position: absolute;
+  border-radius: 3px;
+  left: 9px;
+}
+
+.card label .l::after {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 4px;
+  background: rgba(57, 118, 246, .61);
+  border-radius: 0 0 9px 9px;
+  top: 14px;
+  left: 6px;
+}
+
+.card input {
+  display: none;
+}
+
+.card input:checked+label::before {
+  content: '';
+  background: linear-gradient(to bottom, #59a2fb7e 0%, #3976f6 100%);
+}
+
+.card input:checked+label * {
+  color: white;
+}
+
+.card input:checked+label .link {
+  background-image: url("/images/link-light.svg");  
+}
+
+.card input:checked+label .unlink {
+  background-image: url("/images/unlink-light.svg");  
+}
+
+.card input:checked+label .random {
+  background-image: url("/images/random-light.svg");  
+}
+
+.card input:checked+label i::before,
+.card input:checked+label i::after {
+  background-color: rgba(255, 255, 255, .61);
+}
+
+.card input:checked+label i.f {
+  background-image: linear-gradient(0deg, rgba(89, 162, 251, .61) 2px, transparent 2px), linear-gradient(0deg, rgba(89, 162, 251, .61) 12px, transparent 0);
+}
+
+.card input:checked+label i.a {
+  background-image: linear-gradient(0deg, rgba(89, 162, 251, .61) 2px, transparent 2px);
+}
+
+.card input:checked+label i.a::before,
+.card input:checked+label i.a::after {
+  background-color: rgba(255, 255, 255, 0);
+  border-color: transparent transparent rgba(255, 255, 255, .61);
+}
+
+.card input:checked+label i.r {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.card input:checked+label i.r::before,
+.card input:checked+label i.r::after {
+  background-color: rgba(255, 255, 255, 0);
+  border-color: rgba(255, 255, 255, .61) transparent transparent;
+}
+
+.card input:checked+label small {
+  width: 30px;
+  height: 15px;
+  background-color: #3976f6;
+}
+
+.card input:checked+label small::before {
+  width: 13px;
+  height: 13px;
+  background-color: white;
+  display: block;
+  border-radius: 13px;
+  top: 1px;
+  position: absolute;
+}
+
+.card input:checked+label span::before {
+  opacity: 1;
+}
+
+.card input:checked+label span::after {
+  opacity: 0;
+}
+
+
+
+.card label .link {
+  opacity: 1;
+  background-repeat: no-repeat;
+  content: '';
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 15px;
+  left: 15px;
+  margin-bottom: -30px;
+}
+
+.card label .unlink {
+  opacity: 1;
+  background-repeat: no-repeat;
+  content: '';
+  display: block;
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  top: 15px;
+  left: 15px;
+  margin-bottom: -30px;
+}
+
+.card label .randomized {
+  opacity: 1;
+  background-repeat: no-repeat;
+  content: '';
+  display: block;
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  top: 15px;
+  left: 15px;
+  margin-bottom: -30px;
+}

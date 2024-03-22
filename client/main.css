@@ -8,85 +8,43 @@
   src: url(../fonts/SF-Pro-Rounded-Regular.otf);
 }
 
-:root {
-  --color: #000;
-}
-
-/* mdui-top-app-bar-title,
-mdui-top-app-bar,
-mdui-layout-main {
-  border: 1px dashed red;
-} */
-
-mdui-top-app-bar {
-  height: 10vh;
-}
-
-mdui-layout-main {
-  height: 90vh;
-}
-
-mdui-slider {
-  color: #C69E2F!important;
-  width: 80%;
-}
-
-html {
-  /* background-color: #141218!important; */
-  /* background-color: #0F0!important; */
-  overflow: hidden;
-}
-
-body {
-  /* background-color: #00F!important; */
+* {
   font-family: "SFRegular", "SFRounded", "MyMonoid", Avenir, Verdana, Geneva, Tahoma, sans-serif;
-  /* width: 100vw; */
-  margin: 0;
-  height: 100vh;
-  /* font-size: 0.75em;
-  
-  margin: 2vh 1vw 2vh 1vw;
-  border-radius: 30px; */
-  color: var(--color);
 }
-
-h1 {
-  font-family: "SFRounded", "MyMonoid", Avenir, Verdana, Geneva, Tahoma, sans-serif;
-  color: #C69E2F;
-  text-align: center;
-}
-
-/* @font-face {
-  font-family: "MyMonoid";
-  src: url(../fonts/Monoid-Regular.ttf);
-}
-
-
 
 html {
-  background-color: var(--html) !important;
-  overflow: hidden;
+  background-color: black;
 }
-
-
 
 body {
-  font-family: "MyMonoid", Avenir, Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 0.75em;
-  width: 98vw;
-  height: 96vh;
-  margin: 2vh 1vw 2vh 1vw;
-  border-radius: 30px;
+  display: flex;
+  height: 100vh;
+  overflow-x: hidden;
+  margin: 0 auto;
+  height: 100%;
+  margin: 0;
 }
 
-.example-top-app-bar {
-  border-radius: 30px;
-  padding: 20px;
-} */
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
+ul {
+  list-style: none;
+}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color: #C69E2F;
-  }
+.f {
+  display: flex;
+}
+
+.fe {
+  align-items: flex-end;
+}
+
+.dashboard {
+  /* background-color: rgba(255,255,255,0.1); */
+  width: 100vw;
+  /* border-radius: 30px; */
+  margin: auto;
 }

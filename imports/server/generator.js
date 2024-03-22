@@ -3,11 +3,11 @@ import { gerarGradiente } from "./gradient";
 function artnetArrayGenerator(_aparelhos, _ordem) {
   const numAparelhos = _aparelhos;
   const ordem = _ordem;
-  const artnetArrayGenerator = gerarGradiente(numAparelhos, ordem).reduce(
+  const arrayGenerator = gerarGradiente(numAparelhos, ordem).reduce(
     (acc, cur) => acc.concat(cur),
     []
   );
-  return artnetArrayGenerator;
+  return arrayGenerator;
 }
 
 export { artnetArrayGenerator };

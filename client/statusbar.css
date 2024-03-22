@@ -1,0 +1,119 @@
+.monitor {
+  width: 100vw;
+  height: 80px;
+  position: fixed;
+  bottom: 0px;
+}
+
+.monitor>h2 {
+  margin-bottom: 5px;
+  margin-top: 10px;
+  color: #FFF;
+  font-weight: 100;
+}
+
+.monitor .player {
+  border-radius:  15px 15px 0 0 ;
+  padding: 15px;
+  /* background-image: linear-gradient(to right, #59a2fb 0%, rgba(255,255,255,0.4) 100%); */
+  backdrop-filter: blur(100px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  box-shadow: 0 0px 20px 0 rgba(0, 0, 0, 0.24);
+}
+
+.monitor .timer {
+  /* margin-right: auto; */
+  margin-left: 15px;
+  text-align: right;
+}
+
+.monitor .timer p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.monitor .disc {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  position: relative;
+  background-color: #0F0;
+}
+
+/* .monitor .disc::before,
+.monitor .disc::after {
+  content: '';
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border-radius: 50%;
+}
+
+.monitor .disc::before {
+  width: 20px;
+  height: 20px;
+  background: black;
+  border: 2px solid #5d5d5d;
+}
+
+.monitor .disc::after {
+  width: 8px;
+  height: 8px;
+  background: white;
+} */
+
+.monitor .control {
+  width: 52px;
+  height: 10px;
+  background-image: linear-gradient(to right, rgba(255, 0, 0, 0) 2px, transparent 2px), linear-gradient(to right, rgba(0, 255, 0, 0) 2px, transparent 2px), linear-gradient(to right, white 4px, transparent 0), linear-gradient(to right, white 4px, transparent 0);
+  background-position: 0 0, 47px 0, 20px 0, 26px 0;
+  background-size: 2px 12px, 2px 12px, 4px 12px, 4px 12px;
+  background-repeat: no-repeat;
+  position: relative;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.monitor .control::after,
+.monitor .control::before {
+  content: '';
+  position: absolute;
+  border-width: 6px;
+  border-style: solid;
+  top: -1px;
+}
+
+.monitor .control::before {
+  left: -2px;
+  border-color: transparent rgba(255, 255, 255, 0) transparent transparent;
+}
+
+.monitor .control::after {
+  right: 1px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0);
+}
+
+.monitor .controls input {
+  display: none;
+}
+
+.monitor .controls input:checked+label .control {
+  background-size: 2px 12px, 2px 12px, 0 0, 0 0;
+  background-position: 6px 0, 40px 0, 20px 0, 26px 0;
+}
+
+.monitor .controls input:checked+label .control::after {
+  right: 18px;
+}
+
+.monitor .controls input:checked+label .control::before {
+  left: -2px;
+  border-width: 0;
+}

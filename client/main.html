@@ -1,36 +1,18 @@
 <head>
   <title>EliteLED</title>
   <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
   <meta name="renderer" content="webkit" />
-  <link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet"
-  />
-  <link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
-    rel="stylesheet"
-  />
-  <link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons+Round"
-    rel="stylesheet"
-  />
-  <link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
-    rel="stylesheet"
-  />
-  <link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone" rel="stylesheet" />
   <!-- <link rel="stylesheet" href="https://unpkg.com/mdui@2/mdui.css" /> -->
   <!-- <script src="https://unpkg.com/mdui@2/mdui.global.js"></script> -->
 </head>
 
-<body class="mdui-theme-dark">
+<!-- <body class="mdui-theme-dark">
   <mdui-layout>
     {{> header}}
     <mdui-layout-main class="example-layout-main" style="min-height: 300px">
@@ -39,4 +21,65 @@
       actualPage 'solo'}} {{> solo}} {{/if}}
     </mdui-layout-main>
   </mdui-layout>
+</body> -->
+
+<body>
+  <div class="dashboard">
+    <header>
+      <div class="f fe">
+        <div class="logo">
+          <img src="/images/logo-white.png" alt="">
+        </div>
+      </div>
+
+      <!-- <div class="weather f">
+        <div>
+          <strong>26°<sup>C</sup></strong>
+          <p>Indoor Temp.</p>
+        </div>
+        <div>
+          <strong>48.2%</strong>
+          <p>Outdoor Humidity</p>
+        </div>
+        <div>
+          <strong>52.99</strong>
+          <p>Indoor Temp.</p>
+        </div>
+      </div> -->
+    </header>
+    <section>
+      <!-- Category -->
+      <!-- <div class="category">
+        <ul>
+          <li><a href="#!" class="active">Living Room</a></li>
+          <li><a href="#!">Kitchen</a></li>
+          <li><a href="#!">Dinning</a></li>
+          <li><a href="#!">Weather</a></li>
+        </ul>
+      </div> -->
+      <!-- cards -->
+      {{#if actualPage 'home'}} {{> home}} {{/if}} {{#if actualPage 'clone'}}
+      {{> clone}} {{/if}} {{#if actualPage 'random'}} {{> random}} {{/if}} {{#if
+      actualPage 'solo'}} {{> solo}} {{/if}}
+      {{#if
+        actualPage 'settings'}} {{> settings}} {{/if}}
+    </section>
+  </div>
+  <div class="monitor">
+    <!-- <h2>Status</h2> -->
+    <div class="player">
+      <div class="disc"></div>
+      <!-- <div class="disc"></div> -->
+      <div class="timer">
+        <p>Modo Clonado</p>
+        <small>Tempo de {{timer}} segundos</small>
+      </div>
+      <!-- <div class="controls">
+        <input type="checkbox" name="a" id="p">
+        <label for="p">
+          <div class="control"></div>
+        </label>
+      </div> -->
+    </div>
+  </div>
 </body>

@@ -1,25 +1,37 @@
 <template name="home">
-  <div class="top-title">
-    <h1 class="">Modo de Operação</h1>
-  </div>
+  <div class="cards" id="cards">
 
-  <div id="modeSelect">
-    <mdui-card
-      class="card-mode animate__animated animate__flipInX"
-      variant="outlined"
-      clickable
-      id="solo"
-    >
-      <mdui-icon class="animate__animated animate__zoomIn" name="circle"></mdui-icon>
-      INDEPENDENTE
-    </mdui-card>
-    <mdui-card class="card-mode animate__animated animate__flipInX" variant="outlined" clickable id="clone">
-      <mdui-icon name="join_full" class="animate__animated animate__flip"></mdui-icon>
-      CLONADO
-    </mdui-card>
-    <mdui-card class="card-mode animate__animated animate__flipInX" variant="outlined" clickable id="random">
-      <mdui-icon name="loop" id="icon-loop" class="animate__animated animate__rotateIn"></mdui-icon>
-      ALEATÓRIO
-    </mdui-card>
+    <div class="card">
+      <input type="checkbox" name="a" id="a">
+      <label for="a">
+        <i class="unlink"></i>
+        <strong>Independente</strong>
+        <span data-o="ligado" data-c="desligado"></span>
+        <small></small>
+      </label>
+    </div>
+
+    <div class="card" id="clone">
+      <input type="checkbox" name="a" id="b">
+      <label for="b">
+        <i class="link"></i>
+        <strong>Clonado</strong>
+        <span data-o="ligado" data-c="desligado"></span>
+        <small></small>
+      </label>
+    </div>
+
+    <div class="card">
+      <input type="checkbox" name="a" id="c">
+      <label for="c">
+        <i class="randomized"></i>
+        <strong>Aleatório</strong>
+        <span data-o="ligado" data-c="desligado"></span>
+        <small></small>
+      </label>
+    </div>
+
+    <div class="card" id="settings">
+    </div>
   </div>
 </template>

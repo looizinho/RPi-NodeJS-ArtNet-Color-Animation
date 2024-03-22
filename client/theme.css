@@ -1,0 +1,77 @@
+:root {
+  --text: #000;
+  --bg: #fff;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --player-bg: rgba(255, 255, 255, 0.3);
+  --header-bg: rgba(255,255,255,0.1)
+}
+
+html,
+body {
+  /* background: radial-gradient(circle at top, #6a0dad, #00008b 100%); */
+  background-color: var(--bg);
+  color: var(--text);
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 10s ease infinite;
+}
+
+header {
+  background-color: var(--header-bg);
+}
+
+.card label::before {
+  background-color: var(--card-bg);
+}
+
+.card label .link {
+  background-image: url("/images/link-dark.svg");
+}
+
+.card label .unlink {
+  background-image: url("/images/unlink-dark.svg");
+}
+
+.card label .randomized {
+  background-image: url("/images/teste.svg");
+}
+
+.monitor .player {
+  background-color: var(--player-bg);
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #fff;
+    --bg: #000;
+    --card-bg: rgba(0, 0, 0, 0.4);
+    --player-bg: rgba(0, 0, 0, 0.6);
+    --header-bg: rgba(0,0,0,0.3)
+  }
+
+  .card label .link {
+    background-image: url("/images/link-light.svg");
+  }
+
+  .card label .unlink {
+    background-image: url("/images/unlink-light.svg");
+  }
+
+  .card label .randomized {
+    background-image: url("/images/teste.svg");
+  }
+}

@@ -3,7 +3,10 @@ import "./home.css";
 
 var mode = new ReactiveVar("independente");
 
-Template.home.onRendered(function actionsOnRendered() {});
+Template.home.onRendered(function homeOnRendered() {
+  let cardsTop = (window.innerHeight - document.getElementById('cards').clientHeight) / 2;
+  this.$('#cards').css('margin-top', cardsTop)
+});
 
 Template.home.helpers({
   mode() {
@@ -15,14 +18,12 @@ Template.home.events({
   "click mdui-segmented-button"(e) {
     console.log(e.target.value);
   },
-  "click mdui-card"(e) {
-    $('#solo').attr("class", "card-mode");
-    $("#clone").attr("class", "card-mode");
-    $("#random").attr("class", "card-mode");
-    $(e.target).attr("class", "card-mode card-mode-selected animate__animated animate__pulse");
+  "click .card"(e) {
     Meteor.setTimeout(() => {
-      modePage.set(e.target.id)
-    }, 500);
+      modePage.set(e.target.closest('div').id)
+    }, 1000);
+    console.log('1: ' + e.target.id);
+    console.log('2: ' + modePage.get());
     Meteor.call("setMode", e.target.id);
   },
 });

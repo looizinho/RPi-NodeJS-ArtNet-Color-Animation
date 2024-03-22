@@ -39,13 +39,34 @@ import '../imports/client/ui/home/home'
 import '../imports/client/ui/clone/clone'
 import '../imports/client/ui/solo/solo'
 import '../imports/client/ui/random/random'
+import '../imports/client/ui/settings/settings'
 import '../imports/client/ui/partials/colors'
 import '../imports/client/ui/partials/footer'
 import '../imports/client/ui/partials/transition'
 
-modePage = new ReactiveVar('home')
+modePage = new ReactiveVar('settings')
+var timeNow = new ReactiveVar('')
+var countdown = new ReactiveVar(10)
+
+Meteor.startup(() => {
+  Meteor.setInterval(() => {
+    timeNow.set(new Date().toLocaleTimeString())
+    countdown.set(
+      countdown.get() > 0 ? `0${countdown.get() - 1}` : 10
+    )
+  }, 1000);
+});
+
+Template.body.onRendered(function appOnRendered() {
+});
 
 Template.body.helpers({
+  time() {
+    return `${new Date().toLocaleDateString()} ${timeNow.get()}`
+  },
+  timer() {
+    return countdown.get()
+  },
   actualPage(_page) {
     if (_page == modePage.get()) {
       return true
