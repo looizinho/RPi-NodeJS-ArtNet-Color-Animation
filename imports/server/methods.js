@@ -1,19 +1,43 @@
 import { setLoop } from "./loop";
+import '../both/collections'
 
 Meteor.methods({
-  test() {
-    console.log(new Date().getTime);
+  async countPresets() {
+    return await Presets.countDocuments()
+  },
+  async getPreset() {
+    return await Presets.findOneAsync()
   },
   setMode(mode) {
     console.log(mode);
   },
   setTransitionTime(_time) {
     setLoop(_time*1000);
+    Meteor.call('getPreset', (err, res) => {
+      Presets.updateAsync(res._id, {
+        $set: {
+          time: _time*1000,
+          updatedAt: new Date(),
+          timestamp: new Date().valueOf()
+        }
+      })
+    })
   },
-  changeColors(from, to) {
-    // console.log(color1, color2);
-    from1 = hexTo(from, 'brg');
-    to1 = hexTo(to, 'brg');
+  changeColors(_from, _to) {
+    let from1 = hexTo(_from, 'brg');
+    let to1 = hexTo(_to, 'brg');
+    Meteor.call('getPreset', (err, res) => {
+      Presets.updateAsync(res._id, {
+        $set: {
+          colorFromHex: _from,
+          colorToHex: _to,
+          colorFromBRG: from1,
+          colorToBRG: to1,
+          updatedAt: new Date(),
+          timestamp: new Date().valueOf()
+        }
+      })
+    })
   },
 
   reset() {

@@ -1,14 +1,38 @@
-mdui-top-app-bar {
-  border-bottom: 1px solid #C69E2F;
-  background-color: black;
+header {
+  height: 50px;
+  width: 90vw;
+  position: fixed;
+  top: 0px;
+  border-radius: 0 0 200px 200px;
+  padding: 10px 0 20px 10vw;
+  box-shadow: 0 -5px 27px 0 rgba(128, 128, 128, 0.15);
+  color: white;
 }
 
-.top-app-bar, mdui-top-app-bar-title {
-  text-align: center;
-  height: 60px;
-}
-
-.header-logo {
-  width: 80px;
+header .logo img {
+  width: 25vw;
+  margin-left: 30vw;
   cursor: pointer;
 }
+
+/* header {
+  position: absolute;
+  display: block;
+  top: 0px;
+  width: 90vw;
+  height: 30px;
+  overflow: hidden;
+
+}
+
+
+
+.heading .title {
+  margin: 0;
+  font-size: 26px;
+}
+
+.heading .date {
+  margin: 10px 0;
+  font-size: 16px;
+} */

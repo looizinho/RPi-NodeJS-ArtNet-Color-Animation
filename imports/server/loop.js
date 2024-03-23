@@ -52,7 +52,6 @@ function setLoop(loopTime) {
         createTransition(index, 150, [from1, to1], loopTime, loopTime);
       }
     }, loopTime);
-    console.log(loopTime);
   }, loopTime * 2);
 }
 

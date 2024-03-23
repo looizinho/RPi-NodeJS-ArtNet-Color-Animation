@@ -1,9 +1,64 @@
 import "./settings.html";
 import './settings.css';
+import {
+  changeBackgroundGradientColors,
+  changeBackgroundGradientTime
+}
+  from "../../libs/background-manipulation";
+
+import iro from '@jaames/iro'
+
+let preset = null;
+let pageStarted = new ReactiveVar(true)
+
+Meteor.startup(() => {
+  Meteor.call('getPreset', (err, res) => {
+    preset = res
+  })
+})
+
+Template.settings.onCreated(function settingsOnCreated() {
+  // let theTime = document.getElementById('time')
+  // theTime.setAttribute('value', 9)
+})
 
 Template.settings.onRendered(function settingsOnRendered() {
-  let cardsTop = (window.innerHeight - document.getElementById('settings').clientHeight) / 2;
-  this.$('#settings').css('margin-top', cardsTop)
+  pageStarted.set(true)
+  let cardsTop = document.getElementsByTagName('header').height;
+  let wheelsCenter = (window.innerWidth - 200)
+  let divSettings = this.$('.wheel')
+
+  divSettings.css('margin-top', '0px')
+  // divSettings.css('margin-left', wheelsCenter)
+
+  var colorPickerFrom = new iro.ColorPicker('#pickerFrom', {
+    width: 180
+  });
+
+  var colorPickerTo = new iro.ColorPicker('#pickerTo', {
+    width: 180
+  });
+
+  Meteor.setTimeout(() => {
+    colorPickerFrom.color.hexString = preset.colorFromHex
+    colorPickerTo.color.hexString = preset.colorToHex
+    changeBackgroundGradientColors(preset.colorFromHex, preset.colorToHex);
+  }, 1000);
+
+  colorPickerFrom.on('color:change', function (color) {
+    let colorFrom = color.hexString
+    let colorTo = colorPickerTo.color.hexString
+    changeBackgroundGradientColors(colorFrom, colorTo)
+    Meteor.call('changeColors', colorFrom, colorTo)
+  });
+
+  colorPickerTo.on('color:change', function (color) {
+    let colorFrom = colorPickerFrom.color.hexString
+    let colorTo = color.hexString
+    changeBackgroundGradientColors(colorFrom, colorTo)
+    Meteor.call('changeColors', colorFrom, colorTo)
+  });
+
 
   class RangeSlider {
     constructor(element, settings) {
@@ -21,11 +76,11 @@ Template.settings.onRendered(function settingsOnRendered() {
         varUnit: '--rng-unit',
         varValue: '--rng-value'
       }, stringToType(settings));
-  
+
       this.range = element;
       this.initRange(this.range);
     }
-  
+
     /**
     * @function initRange
     * @param {Node} range
@@ -34,7 +89,7 @@ Template.settings.onRendered(function settingsOnRendered() {
     initRange(range) {
       const circular = this.settings.range.includes('circular');
       range.id = range.id || uuid();
-  
+
       this.lower = this.settings.range.includes('upper') ? range.parentNode.querySelector(`[data-range*="lower"]`) : null;
       this.max = parseInt(range.max, 10) || 100;
       this.min = parseInt(range.min, 10);
@@ -44,12 +99,12 @@ Template.settings.onRendered(function settingsOnRendered() {
       this.upper = this.settings.range.includes('lower') ? range.parentNode.querySelector(`[data-range*="upper"]`) : null;
       const isMulti = (this.lower || this.upper);
       this.wrapper = isMulti ? range.parentNode : document.createElement('div');
-  
+
       /* output */
       if (this.output) {
         this.output.className = circular ? this.settings.clsCircularOutput : this.settings.clsOutput;
         this.output.for = range.id;
-  
+
         if (isMulti) {
           this.wrapper.insertBefore(this.output, range);
         }
@@ -58,32 +113,33 @@ Template.settings.onRendered(function settingsOnRendered() {
           this.wrapper.appendChild(this.output);
         }
       }
-  
+
       /* wrapper */
-      if (!isMulti) { 
+      if (!isMulti) {
         range.parentNode.insertBefore(this.wrapper, range);
         this.wrapper.appendChild(range);
       }
       if (range.dataset.modifier) {
         this.wrapper.classList.add(range.dataset.modifier)
       }
-  
+
       this.wrapper.classList.add(this.settings.clsWrapper);
       this.wrapper.style.setProperty(this.settings.varThumb, getComputedStyle(range).getPropertyValue(this.settings.varThumb));
-  
+
       /* ticks */
       if (this.ticks) {
         const ticks = [...Array(this.ticks).keys()];
         const svg = `
           <svg class="${this.settings.clsRangeTicks}" width="100%" height="100%">
           ${ticks.map((index) => {
-            return `<rect x="${(100 / this.ticks) * index}%" y="5" width="1" height="100%"></rect>`}).join('')
+          return `<rect x="${(100 / this.ticks) * index}%" y="5" width="1" height="100%"></rect>`
+        }).join('')
           }
           <rect x="100%" y="5" width="1" height="100%"></rect>
         </svg>`;
         this.wrapper.insertAdjacentHTML('afterbegin', svg);
       }
-  
+
       /* circular */
       if (circular) {
         range.hidden = true;
@@ -91,25 +147,25 @@ Template.settings.onRendered(function settingsOnRendered() {
         this.setCenter();
         this.output.setAttribute('tabindex', 0);
         this.output.addEventListener('keydown', (event) => {
-          switch(event.key) {
+          switch (event.key) {
             case 'ArrowLeft': case 'ArrowDown': event.preventDefault(); this.range.stepDown(); this.updateCircle(); break;
             case 'ArrowRight': case 'ArrowUp': event.preventDefault(); this.range.stepUp(); this.updateCircle(); break;
             default: break;
           }
         });
-        this.output.addEventListener('pointerdown', () => {return this.output.addEventListener('pointermove', pointerMove)});
-        this.output.addEventListener('pointerup', () => {return this.output.removeEventListener('pointermove', pointerMove)});
-  
+        this.output.addEventListener('pointerdown', () => { return this.output.addEventListener('pointermove', pointerMove) });
+        this.output.addEventListener('pointerup', () => { return this.output.removeEventListener('pointermove', pointerMove) });
+
         this.updateCircle();
       }
       else {
-        range.addEventListener('input', () => {return this.updateRange()});
+        range.addEventListener('input', () => { return this.updateRange() });
       }
-  
+
       /* TODO: Send init event ? */
       range.dispatchEvent(new Event('input'));
     }
-  
+
     /**
     * @function rotate
     * @param {Number} x
@@ -119,7 +175,7 @@ Template.settings.onRendered(function settingsOnRendered() {
     rotate(x, y) {
       return Math.atan2(y - this.center.y, x - this.center.x) * 180 / Math.PI
     }
-  
+
     /**
     * @function setCenter
     * @description Calculates center of circular range
@@ -131,7 +187,7 @@ Template.settings.onRendered(function settingsOnRendered() {
         y: rect.top + rect.height / 2
       }
     }
-  
+
     /**
     * @function updateCircle
     * @param {Number} start
@@ -140,26 +196,36 @@ Template.settings.onRendered(function settingsOnRendered() {
     updateCircle(start) {
       let angle = start;
       let rad = 360 / (this.max - this.min);
-      if (!angle) {angle = rad * this.range.valueAsNumber + this.settings.offset;}
+      if (!angle) { angle = rad * this.range.valueAsNumber + this.settings.offset; }
       let end = angle - this.settings.offset;
-      if (end < 0) {end = end + 360;}
-      if (start) {this.range.value = Math.ceil(end / rad);}
+      if (end < 0) { end = end + 360; }
+      if (start) { this.range.value = Math.ceil(end / rad); }
       this.wrapper.dataset.value = this.range.value;
 
 
 
 
       // UPDATE
-      Meteor.call('setTransitionTime', this.range.value)
+      if (pageStarted.get() == true) {
+        Meteor.setTimeout(() => {
+          let theTime = document.getElementById('time')
+          theTime.setAttribute('value', preset.time / 1000)
+        }, 1000)
+
+        pageStarted.set(false)
+      } else {
+        Meteor.call('setTransitionTime', this.range.value)
+        changeBackgroundGradientTime(this.range.value * 1000)
+      }
 
 
 
 
-      
+
       this.wrapper.style.setProperty('--angle', `${angle}deg`);
       this.wrapper.style.setProperty('--gradient-end', `${end}deg`);
     }
-  
+
     /**
     * @function updateRange
     * @description Updates CSS Custom Props when range-input is modified
@@ -177,22 +243,22 @@ Template.settings.onRendered(function settingsOnRendered() {
           return;
         }
       }
-  
+
       const value = (this.range.valueAsNumber - this.min) * this.multiplier;
       this.range.style.setProperty(this.settings.varPercent, `${value}%`);
       this.range.style.setProperty(this.settings.varValue, `${this.range.valueAsNumber}`);
-      
+
       if (this.lower) {
         this.lower.style.setProperty(this.settings.varPercentUpper, `${value}%`);
       }
-  
+
       if (this.output) {
         this.output.style.setProperty(this.settings.varUnit, `${value}`);
         this.output.innerText = this.range.value;
       }
     }
   }
-  
+
   /* Helper methods */
   function stringToType(obj) {
     const object = Object.assign({}, obj);
@@ -203,27 +269,36 @@ Template.settings.onRendered(function settingsOnRendered() {
     });
     return object;
   }
-  
+
   function uuid() {
-    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
-      {return (
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c => {
+      return (
         c ^
         (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
-      ).toString(16)}
+      ).toString(16)
+    }
     );
   }
-  
+
+
   /* Demo: Run it */
-  const elements = document.querySelectorAll('[data-range]');
-    elements.forEach(element => {
-      new RangeSlider(element, element.dataset);
-    })
+  if (pageStarted.get() == true) {
+    Meteor.setTimeout(() => {
+      const elements = document.querySelectorAll('[data-range]');
+      elements[0].setAttribute('value', preset.time / 1000)
+      elements.forEach(element => {
+        new RangeSlider(element, element.dataset);
+      })
+      $('.settings').show()
+    }, 1000)
+  }
 });
 
-Template.settings.events({
-  'mouseover div'(e) {
-    console.log('hello world');
-    
+Template.settings.helpers({
+  currentTime() {
+    return preset.time
   }
 })
 
+Template.settings.events({
+})

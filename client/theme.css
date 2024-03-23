@@ -3,24 +3,45 @@
   --bg: #fff;
   --card-bg: rgba(255, 255, 255, 0.7);
   --player-bg: rgba(255, 255, 255, 0.3);
-  --header-bg: rgba(255,255,255,0.1)
+  --header-bg: rgba(255,255,255,0.1);
+  --grad-from: #000000;
+  --grad-to: #000000;
+  --grad-time: 30s;
+}
+
+html {
+  background-color: black;
 }
 
 html,
 body {
-  /* background: radial-gradient(circle at top, #6a0dad, #00008b 100%); */
+  margin: 0;
   background-color: var(--bg);
   color: var(--text);
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background: linear-gradient(-45deg, #000000, var(--grad-from), var(--grad-to), #000000);
   background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
+  animation: gradient var(--grad-time) ease infinite;
 }
 
 header {
   background-color: var(--header-bg);
 }
 
-.card label::before {
+section {
+  margin: 70px 0 80px 0;
+  display: flex;
+  flex-direction: row-reverse;
+  /* flex-wrap: wrap; */
+}
+
+article {
+  flex: 200px;
+  padding: 10px;
+  margin: 20px;
+  border-radius: 30px;
+}
+
+.card label::before, article {
   background-color: var(--card-bg);
 }
 
@@ -36,8 +57,12 @@ header {
   background-image: url("/images/teste.svg");
 }
 
-.monitor .player {
+.footer .player {
   background-color: var(--player-bg);
+}
+
+.settings .wheel {
+  background-color: var(--card-bg);
 }
 
 @keyframes gradient {

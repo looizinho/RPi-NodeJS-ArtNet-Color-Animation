@@ -2,6 +2,7 @@ import { Meteor } from "meteor/meteor";
 import { getRandomColor, setLoop } from "../imports/server/loop";
 import { artnetArrayGenerator } from "../imports/server/generator";
 import "../imports/server/methods";
+import "../imports/both/collections"
 
 var ordem1 = "up";
 var ordem2 = "down";
@@ -33,7 +34,25 @@ const options = {
 var artnet = require("artnet")(options);
 
 Meteor.startup(() => {
-  // setLoop(500);
+
+  Meteor.call('countPresets', (err, res)=> {
+    if (res < 1) {
+      let dateNow = new Date()
+      Presets.insertAsync({
+        time: 7000,
+        colorFromHex: '#000000',
+        colorToHex: '#FFFFFF',
+        colorFromBRG: {"b":0,"g":0,"r":0},
+        colorToBRG: {"b":255,"g":255,"r":255},
+        createdAt: dateNow,
+        timestamp: dateNow.valueOf()
+      })
+    } else {
+      Meteor.call('getPreset', (err, res)=> {
+        console.log(res);
+      })
+    }
+  })
   from1 = getRandomColor(TRESHOLD);
   from2 = from1;
   artnet.set(UNIVERSE1, RED, artnetArrayGenerator(100, ordem1));

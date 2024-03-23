@@ -12,7 +12,27 @@
   font-family: "SFRegular", "SFRounded", "MyMonoid", Avenir, Verdana, Geneva, Tahoma, sans-serif;
 }
 
-html {
+
+
+
+body {
+
+}
+
+
+
+h1 {
+  text-align: center;
+  color: white;
+  line-height: 100px;
+  margin: 0;
+}
+
+/* Add your flexbox CSS below here */
+
+
+
+/* html {
   background-color: black;
 }
 
@@ -23,6 +43,12 @@ body {
   margin: 0 auto;
   height: 100%;
   margin: 0;
+}
+
+h1 {
+  margin-top: 70px;
+  text-align: center;
+  color: black;
 }
 
 a {
@@ -40,11 +66,4 @@ ul {
 
 .fe {
   align-items: flex-end;
-}
-
-.dashboard {
-  /* background-color: rgba(255,255,255,0.1); */
-  width: 100vw;
-  /* border-radius: 30px; */
-  margin: auto;
-}
+} */

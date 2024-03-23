@@ -1,3 +1,16 @@
+.settings {
+	/* background-color: red; */
+	margin-bottom: 100px;
+}
+
+.settings .wheel {
+	margin-bottom: 30px;
+	width: 90vw;
+	margin-left: 3vw;
+	border-radius: 30px;
+	padding: 10px 2vw 10px 2vw;
+}
+
 .c-rng {
 	--rng-focus: #064374;
 	--rng-lower: #6495ED;
@@ -190,7 +203,7 @@ CIRCULAR
 */
 .c-rng--circular {
 	--circle-bgc: rgba(0,0,0,1);
-	--circle-size: 200px;
+	--circle-size: 180px;
 	--track-bgc: hsl(219, 20%, 85%);
 	--track-fill: cornflowerblue;
 	--thumb-size: 30px;

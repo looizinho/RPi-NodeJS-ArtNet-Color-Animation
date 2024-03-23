@@ -4,35 +4,14 @@ import { ReactiveVar } from "meteor/reactive-var";
 import '../imports/client/mdui.css'
 import '../imports/client/mdui.js'
 import "./main.html";
-// // import "@material/web/all";
-import 'animate.css';
-// import "mdui/mdui.css";
-// import "mdui.js";
-// import "mdui/components/layout.js";
-// import "mdui/components/layout-item.js";
-// import "mdui/components/layout-main.js";
-// import 'mdui/components/navigation-bar.js';
-// import 'mdui/components/navigation-bar-item.js';
-// import 'mdui/components/icon.js';
-// import 'mdui/components/bottom-app-bar.js';
 
-// import {
-//   alert,
-//   confirm,
-//   card,
-//   dialog,
-//   prompt,
-//   snackbar,
-//   getTheme,
-//   setTheme,
-//   getColorFromImage,
-//   setColorScheme,
-//   removeColorScheme,
-//   throttle,
-//   observeResize,
-//   breakpoint,
-//   slider,
-// } from "mdui.js";
+import {
+  changeBackgroundGradientColors,
+  changeBackgroundGradientTime
+}
+  from "../imports/client/libs/background-manipulation";
+
+import 'animate.css';
 
 import '../imports/client/ui/partials/header'
 import '../imports/client/ui/home/home'
@@ -44,11 +23,16 @@ import '../imports/client/ui/partials/colors'
 import '../imports/client/ui/partials/footer'
 import '../imports/client/ui/partials/transition'
 
-modePage = new ReactiveVar('settings')
+modePage = new ReactiveVar('home')
 var timeNow = new ReactiveVar('')
 var countdown = new ReactiveVar(10)
+let preset = null;
 
 Meteor.startup(() => {
+  Meteor.call('getPreset', (err, res) => {
+    preset = res
+  })
+
   Meteor.setInterval(() => {
     timeNow.set(new Date().toLocaleTimeString())
     countdown.set(
@@ -58,6 +42,10 @@ Meteor.startup(() => {
 });
 
 Template.body.onRendered(function appOnRendered() {
+  Meteor.setTimeout(() => {
+    changeBackgroundGradientColors(preset.colorFromHex, preset.colorToHex);
+    changeBackgroundGradientTime(preset.time)
+  }, 1000);
 });
 
 Template.body.helpers({

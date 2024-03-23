@@ -45,7 +45,6 @@ function animateColorTransition( universe, fixtures, colors, duration, pause) {
         var startColor = colors[currentIndex];
         var endColor = colors[(currentIndex + 1) % colors.length];
         var color = interpolateColor(startColor, endColor, progress);
-        // console.log(color); // Exibe a cor no console
         artnetColors.set(universe, 1, gerarLoop(fixtures, color));
         Meteor.setTimeout(updateColor, 16); // Chama recursivamente após 16ms para aproximadamente 60 FPS
       }

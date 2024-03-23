@@ -1,6 +1,15 @@
 <template name="settings">
+  <h1>Ajustes</h1>
   <div class="settings" id="settings">
-    <h1>SETTINGS</h1>
-    <input id="time" type="range" class="c-rng" min="0" max="30" step="1" value="7" data-range="circular" data-modifier="" />
+    <div class="wheel">
+      <div id="pickerFrom"></div>
+    </div>
+    <div class="wheel">
+      <div id="pickerTo"></div>
+    </div>
+    <div class="wheel">
+      <input id="time" type="range" class="c-rng" min="0" max="30" step="1" value="" data-range="circular"
+      data-modifier="" hidden/>
+    </div>
   </div>
 </template>
